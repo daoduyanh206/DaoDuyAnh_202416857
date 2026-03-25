@@ -1,0 +1,57 @@
+Câu 1: Chuyện gì xảy ra nếu người dùng chọn "Cancel"?
+Trong mã nguồn, dòng số 8 sử dụng một toán tử điều kiện (ternary operator) để kiểm tra biến option:
+(option == JOptionPane.YES_OPTION ? "Yes" : "No")
+
+Kết quả: Nếu người dùng nhấn Cancel (hoặc đóng cửa sổ bằng dấu X), giá trị của biến option sẽ không bằng JOptionPane.YES_OPTION.
+
+Hiển thị: Do đó, chương trình sẽ mặc định rơi vào trường hợp còn lại ("No") và hiển thị thông báo: "You've chosen: No".
+
+Câu 2: Cách tùy chỉnh các nút bấm
+Để tùy chỉnh các nút,cần sử dụng các tham số khác của hàm showConfirmDialog hoặc sử dụng hàm showOptionDialog.
+
+A. Chỉ hiển thị "Yes" và "No" (Loại bỏ nút Cancel)
+Thêm tham số optionType vào hàm như sau:
+
+int option = JOptionPane.showConfirmDialog(null, 
+    "Do you want to change to the first class ticket?", 
+    "Select an Option", 
+    JOptionPane.YES_NO_OPTION);
+//JOptionPane.YES_NO_OPTION: Sẽ chỉ hiển thị đúng 2 nút Yes và No.
+
+B. Tùy chỉnh văn bản bất kỳ (ví dụ: "I do" và "I don't")
+Để thay đổi hẳn chữ trên nút bấm, dùng showOptionDialog.
+
+Object[] options = {"I do", "I don't"}; // Mảng chứa tiêu đề các nút
+
+int n = JOptionPane.showOptionDialog(null,
+    "Do you want to change?",        // Nội dung thông báo
+    "A Silly Question",              // Tiêu đề cửa sổ
+    JOptionPane.YES_NO_OPTION,       // Kiểu tùy chọn (để quản lý icon)
+    JOptionPane.QUESTION_MESSAGE,    // Kiểu thông báo (icon hỏi chấm)
+    null,                            // Icon tùy chỉnh (để null nếu không dùng)
+    options,                         // Mảng các nút bấm tùy chỉnh
+    options[0]);                     // Nút mặc định khi nhấn Enter
+
+Code hoàn chỉnh:
+
+import javax.swing.JOptionPane;
+
+public class ChoosingOption {
+    public static void main(String[] args) {
+        // Mảng tùy chỉnh tên nút
+        Object[] options = {"I do", "I don't"};
+        
+        int option = JOptionPane.showOptionDialog(null,
+                "Do you want to change to the first class ticket?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, options, options[0]);
+
+        // Kiểm tra kết quả (nút đầu tiên "I do" tương ứng với chỉ số 0)
+        String response = (option == JOptionPane.YES_OPTION) ? "I do" : "I don't";
+        
+        JOptionPane.showMessageDialog(null, "You've chosen: " + response);
+        System.exit(0);
+    }
+}
