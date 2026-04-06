@@ -1,0 +1,7 @@
+No, Java does NOT allow this — and it's a great edge case to understand about constructor overloading.
+Here's why. Constructor overloading works based on the method signature, which Java distinguishes by:
+- Number of parameters
+- Types of parameters
+- Order of parameters
+The problem is that both title and category are of type String. So these two constructors would have identical signatures.
+Java sees both as DigitalVideoDisc(String) — it cannot tell them apart by parameter name, only by type. This causes a compile-time error.
