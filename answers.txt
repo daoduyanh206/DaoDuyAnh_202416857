@@ -1,0 +1,42 @@
+---------------------------------------------------------------------------
+PHẦN 3: TRUYỀN THAM SỐ (PARAMETER PASSING)
+---------------------------------------------------------------------------
+Câu hỏi: Phương thức swap() trong TestPassingParameter.java có thực sự 
+          đổi chỗ hai đối tượng DVD không? Tại sao?
+
+Trả lời: 
+- Không, phương thức swap() KHÔNG đổi chỗ hai đối tượng gốc.
+- Lý do: Java sử dụng cơ chế "Truyền bằng giá trị" (Pass-by-value) cho tất cả các tham số.
+  + Khi truyền một đối tượng, Java truyền bản sao của tham chiếu (địa chỉ ô nhớ), 
+    chứ không phải bản thân đối tượng đó.
+  + Bên trong phương thức swap(), chỉ có các bản sao cục bộ của tham chiếu bị 
+    tráo đổi. Các biến gốc (lionKing và starWars) trong phương thức main vẫn 
+    trỏ đến vị trí bộ nhớ ban đầu của chúng.
+  + Vì vậy, tiêu đề của các DVD không thay đổi sau khi gọi hàm swap().
+
+Câu hỏi: Phương thức changeTitle() có thay đổi tiêu đề của DVD không?
+
+Trả lời:
+- Có, phương thức này có thay đổi tiêu đề.
+- Lý do: Mặc dù tham chiếu được truyền bằng giá trị, nhưng bản sao của tham 
+  chiếu vẫn trỏ đến cùng một đối tượng trong bộ nhớ. Việc sử dụng phương thức 
+  setter (dvd.setTitle()) sẽ tác động trực tiếp vào trạng thái nội tại của 
+  đối tượng đó. Tuy nhiên, nếu gán lại tham chiếu (dvd = new DigitalVideoDisc(...)) 
+  trong hàm thì sẽ không ảnh hưởng đến đối tượng gốc bên ngoài.
+
+---------------------------------------------------------------------------
+PHẦN 2: THÀNH VIÊN LỚP (QUẢN LÝ ID)
+---------------------------------------------------------------------------
+- Biến 'nbDigitalVideoDiscs' là một biến tĩnh (static) được dùng để theo dõi 
+  tổng số lượng DVD đã được tạo ra.
+- Mỗi đối tượng DVD khi khởi tạo sẽ được gán một 'id' duy nhất bằng cách tăng 
+  giá trị của biến tĩnh này bên trong các hàm khởi tạo (constructors).
+
+---------------------------------------------------------------------------
+PHẦN 5: TÁI CẤU TRÚC VÀ GÓI (PACKAGES)
+---------------------------------------------------------------------------
+- Dự án đã được tổ chức theo cấu trúc gói chuyên nghiệp:
+  + hust.soict.dsai.aims.disc: Chứa lớp DigitalVideoDisc.java
+  + hust.soict.dsai.aims.cart: Chứa lớp Cart.java
+  + hust.soict.dsai.aims.store: Chứa lớp Store.java
+  + hust.soict.dsai.aims.test: Chứa các lớp kiểm tra (CartTest, StoreTest,...)
