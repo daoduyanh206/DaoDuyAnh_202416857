@@ -39,4 +39,39 @@ public class Cart {
         }
         return total;
     }
+
+    // Phương thức in danh sách giỏ hàng
+    public void print() {
+        System.out.println("***********************CART***********************");
+        System.out.println("Ordered Items:");
+        for (int i = 0; i < qtyOrdered; i++) {
+            System.out.println((i + 1) + ". " + itemsOrdered[i].toString());
+        }
+        System.out.println("Total cost: " + totalCost() + " $");
+        System.out.println("***************************************************");
+    }
+    // Tìm kiếm theo ID
+    public void searchById(int id) {
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getId() == id) {
+                System.out.println("Found: " + itemsOrdered[i].toString());
+                found = true;
+                break;
+            }
+        }
+        if (!found) System.out.println("No DVD found with ID: " + id);
+    }
+
+    // Tìm kiếm theo Tiêu đề
+    public void searchByTitle(String title) {
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getTitle().equalsIgnoreCase(title)) {
+                System.out.println("Found: " + itemsOrdered[i].toString());
+                found = true;
+            }
+        }
+        if (!found) System.out.println("No DVD found with title: " + title);
+    }
 }
