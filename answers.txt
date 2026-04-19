@@ -1,0 +1,11 @@
+--- PHẦN 3: TOPIC/PASSING-PARAMETER ---
+
+Câu hỏi 1: Hãy xem xét đoạn mã nguồn trong phương thức swap(). Phương thức này có thực sự tráo đổi hai đối tượng DVD được truyền vào không? Tại sao?
+Trả lời: 
+- Phương thức swap(Object o1, Object o2) KHÔNG thực hiện tráo đổi được hai đối tượng gốc ở hàm main.
+- Giải thích: Java sử dụng cơ chế "Pass-by-value". Khi truyền đối tượng vào phương thức, Java tạo ra bản sao của tham chiếu (địa chỉ ô nhớ). Việc tráo đổi `o1` và `o2` bên trong phương thức thực chất chỉ là tráo đổi hai "bản sao" này, không làm ảnh hưởng đến các biến tham chiếu gốc mà `jungleDVD` và `cinderellaDVD` đang nắm giữ.
+
+Câu hỏi 2: Phương thức changeTitle(DigitalVideoDisc dvd, String title) có làm thay đổi tiêu đề của đối tượng DVD gốc không? Tại sao?
+Trả lời:
+- CÓ, phương thức này làm thay đổi tiêu đề của đối tượng gốc.
+- Giải thích: Mặc dù biến `dvd` truyền vào phương thức là một bản sao của tham chiếu, nhưng nó vẫn trỏ chung đến cùng một vùng nhớ với đối tượng gốc. Khi ta gọi `dvd.setTitle(title)`, ta đang truy cập vào nội dung bên trong vùng nhớ đó và sửa đổi nó, do đó thay đổi sẽ được phản ánh lên đối tượng gốc.
