@@ -2,24 +2,18 @@ public class Aims {
     public static void main(String[] args){
         Cart cart = new Cart();
 
-        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The line king","Animation","Rogger Aller",87, 19.95f);
+        // Sử dụng Constructor đầy đủ tham số
+        DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);
         cart.addDigitalVideoDisc(dvd1);
 
-        DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star wars","Science fiction","George Lucas",87, 24.05f);
+        // Sử dụng Constructor 4 tham số
+        DigitalVideoDisc dvd2 = new DigitalVideoDisc("George Lucas", "Science Fiction", "Star Wars", 24.95f);
         cart.addDigitalVideoDisc(dvd2);
 
-        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Animation","Aladin",18.99f);
+        // Sử dụng Constructor 3 tham số (Lưu ý thứ tự bạn đã viết: category, title, cost)
+        DigitalVideoDisc dvd3 = new DigitalVideoDisc("Animation", "Aladin", 18.99f);
         cart.addDigitalVideoDisc(dvd3);
 
-        System.out.println("Total cost is: ");
-        System.out.println(cart.totalCost());
-
-        cart.removeDigitalVideoDisc(dvd2);
-
-        System.out.println("Total cost is: ");
-        System.out.println(cart.totalCost());
-
-        cart.removeDigitalVideoDisc(dvd2);
+        System.out.println("Total cost is: " + cart.totalCost());
     }
-
 }
