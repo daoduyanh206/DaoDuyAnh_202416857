@@ -15,5 +15,17 @@ public class CartTest {
 
         // Kiểm tra phương thức in
         cart.print();
+
+        // Kiểm tra tìm kiếm theo ID
+        System.out.println("\nSearch by ID 2:");
+        cart.searchById(2);
+
+        // Kiểm tra tìm kiếm theo Tiêu đề
+        System.out.println("\nSearch by Title 'Star Wars':");
+        cart.searchByTitle("Star Wars");
+
+        System.out.println("\nSearch by Title 'Lion':");
+        cart.searchByTitle("Lion");
     }
+
 }
