@@ -16,3 +16,12 @@ Câu hỏi: Sự khác nhau giữa biến `id` và biến `nbDigitalVideoDiscs` 
 Trả lời:
 - Biến `id` là biến thể hiện (instance member): Mỗi đối tượng DVD sẽ có một bản sao riêng của `id`. Giá trị này là duy nhất cho mỗi đĩa.
 - Biến `nbDigitalVideoDiscs` là biến lớp (class member/static): Chỉ có DUY NHẤT một bản sao của biến này dùng chung cho tất cả các đối tượng thuộc lớp DigitalVideoDisc. Nó dùng để theo dõi tổng số lượng DVD đã được tạo ra trong toàn bộ chương trình.
+
+--- PHẦN 9: TOPIC/MEMORY-MANAGEMENT-STRING ---
+
+Câu hỏi: Sự khác biệt giữa String, StringBuffer và StringBuilder là gì? Khi nào nên sử dụng mỗi loại?
+Trả lời:
+- String: Là đối tượng bất biến (immutable). Khi bạn thay đổi hoặc cộng chuỗi, Java sẽ tạo ra một đối tượng String hoàn toàn mới trong bộ nhớ. Nếu làm việc này trong vòng lặp lớn, nó sẽ tạo ra rất nhiều "rác" và làm chậm chương trình.
+- StringBuilder: Là đối tượng có thể thay đổi (mutable). Nó cho phép chỉnh sửa nội dung chuỗi mà không tạo ra đối tượng mới. Nó có tốc độ nhanh nhất nhưng không an toàn trong môi trường đa luồng (non-thread-safe).
+- StringBuffer: Tương tự StringBuilder nhưng an toàn trong môi trường đa luồng (thread-safe) do có cơ chế đồng bộ hóa (synchronization). Vì thế, nó chậm hơn StringBuilder một chút.
+- Kết luận: Nên dùng String cho chuỗi cố định, StringBuilder cho việc xử lý/xây dựng chuỗi trong vòng lặp đơn luồng, và StringBuffer khi làm việc với đa luồng.
