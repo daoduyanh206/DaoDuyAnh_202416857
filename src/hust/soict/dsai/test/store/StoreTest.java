@@ -10,11 +10,11 @@ public class StoreTest {
         DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star Wars", "Science Fiction", "George Lucas", 87, 24.95f);
 
         // Kiểm tra thêm DVD
-        store.addDVD(dvd1);
-        store.addDVD(dvd2);
+        store.addMedia(dvd1);
+        store.addMedia(dvd2);
 
         // Kiểm tra xóa DVD
-        store.removeDVD(dvd1);
-        store.removeDVD(dvd1); // Thử xóa lại đĩa đã xóa
+        store.removeMedia(dvd1);
+        store.removeMedia(dvd1); // Thử xóa lại đĩa đã xóa
     }
 }
