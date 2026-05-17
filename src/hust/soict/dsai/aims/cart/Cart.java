@@ -1,5 +1,5 @@
 package hust.soict.dsai.aims.cart;
-
+import java.util.Collections;
 import java.util.ArrayList;
 import hust.soict.dsai.aims.media.Media; // Import lớp cha Media
 
@@ -75,5 +75,17 @@ public class Cart {
         if (!found) {
             System.out.println("No item with title: '" + title + "' was found.");
         }
+    }
+
+    // Phương thức sắp xếp theo tiêu đề trước, giá sau
+    public void sortByTitle() {
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_TITLE_COST);
+        System.out.println("The items in the cart have been sorted by Title.");
+    }
+
+    // Phương thức sắp xếp theo giá trước, tiêu đề sau
+    public void sortByCost() {
+        Collections.sort(itemsOrdered, Media.COMPARE_BY_COST_TITLE);
+        System.out.println("The items in the cart have been sorted by Cost.");
     }
 }
