@@ -25,3 +25,25 @@ Trả lời:
 - StringBuilder: Là đối tượng có thể thay đổi (mutable). Nó cho phép chỉnh sửa nội dung chuỗi mà không tạo ra đối tượng mới. Nó có tốc độ nhanh nhất nhưng không an toàn trong môi trường đa luồng (non-thread-safe).
 - StringBuffer: Tương tự StringBuilder nhưng an toàn trong môi trường đa luồng (thread-safe) do có cơ chế đồng bộ hóa (synchronization). Vì thế, nó chậm hơn StringBuilder một chút.
 - Kết luận: Nên dùng String cho chuỗi cố định, StringBuilder cho việc xử lý/xây dựng chuỗi trong vòng lặp đơn luồng, và StringBuffer khi làm việc với đa luồng.
+
+--- PHẦN 12: TOPIC/SORT-MEDIA-COMPARABLE-COMPARATOR ---
+
+Câu hỏi 1: Nếu sử dụng hướng tiếp cận Comparable thay vì Comparator, lớp nào sẽ cần triển khai (implement) interface Comparable?
+Trả lời:
+- Lớp Media nên là lớp triển khai interface Comparable<Media>.
+- Giải thích: Vì Media là lớp cha của tất cả các loại sản phẩm (Book, CompactDisc, DigitalVideoDisc), việc triển khai tại đây sẽ cho phép các lớp con tự động thừa hưởng khả năng so sánh và sắp xếp chung của toàn bộ hệ thống.
+
+Câu hỏi 2: Trong lớp đó, phương thức compareTo() cần được cài đặt như thế nào để phản ánh đúng quy tắc sắp xếp chúng ta muốn?
+Trả lời:
+- Phương thức compareTo(Media other) sẽ được ghi đè để so sánh thuộc tính tiêu đề (title) trước (sử dụng phương thức title.compareToIgnoreCase(other.title)).
+- Giải thích: Trong trường hợp hai sản phẩm có cùng tiêu đề, chúng ta sẽ tiếp tục so sánh thuộc tính giá cả (cost) bằng hàm Float.compare(other.cost, this.cost) hoặc đối chiếu các giá trị tương đương để đưa sản phẩm có giá cao hơn lên trước.
+
+Câu hỏi 3: Chúng ta có thể định nghĩa đồng thời cả hai quy tắc sắp xếp (sắp xếp theo tiêu đề trước giá sau, và sắp xếp theo giá trước tiêu đề sau) nếu chỉ sử dụng hướng tiếp cận Comparable không?
+Trả lời:
+- KHÔNG thể định nghĩa đồng thời hai quy tắc nếu chỉ dùng Comparable.
+- Giải thích: Interface Comparable chỉ cho phép định nghĩa một quy tắc sắp xếp tự nhiên duy nhất qua một phương thức compareTo() duy nhất của lớp. Để hệ thống có thể linh hoạt chuyển đổi giữa nhiều tiêu chí độc lập khác nhau theo lựa chọn của người dùng, chúng ta bắt buộc phải sử dụng hướng tiếp cận Comparator.
+
+Câu hỏi 4: Giả sử đĩa DVD có một quy tắc sắp xếp hoàn toàn khác biệt so với các loại phương tiện khác (sắp xếp theo tiêu đề, sau đó đến thời lượng giảm dần, rồi mới đến giá tiền). Bạn sẽ chỉnh sửa mã nguồn như thế nào để đáp ứng điều này?
+Trả lời:
+- Cách xử lý: Chúng ta có thể kiểm tra kiểu dữ liệu đặc thù bằng toán tử `instanceof` hoặc ghi đè riêng phương thức xử lý cho đĩa DVD.
+- Giải thích: Trong hàm compare() của Comparator hoặc compareTo() của Comparable, ta sẽ kiểm tra xem đối tượng có phải là DigitalVideoDisc hay không. Nếu đúng, ta thực hiện ép kiểu và chèn thêm bước so sánh thuộc tính thời lượng (length) giảm dần vào giữa bước so sánh tiêu đề và giá tiền để đáp ứng đúng nghiệp vụ riêng biệt của DVD.

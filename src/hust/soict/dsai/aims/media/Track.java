@@ -24,4 +24,17 @@ public class Track implements Playable {
             System.out.println("Track length: " + this.getLength() + " min");
         }
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof Track)) return false;
+        Track other = (Track) obj;
+        if (this.title == null) {
+            if (other.title != null) return false;
+        } else if (!this.title.equalsIgnoreCase(other.title)) {
+            return false; // Tiêu đề khác nhau 
+        }
+        return this.length == other.length; // Thời lượng phải bằng nhau 
+    }
 }
