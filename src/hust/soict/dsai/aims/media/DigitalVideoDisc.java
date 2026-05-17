@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.media;
 
-public class DigitalVideoDisc extends Disc { // Thay đổi kế thừa từ Media sang Disc
+public class DigitalVideoDisc extends Disc implements Playable {
     private static int nbDigitalVideoDiscs = 0;
 
     // Cập nhật các Constructor để chuyển dữ liệu lên lớp cha Disc bằng super()
@@ -23,5 +23,15 @@ public class DigitalVideoDisc extends Disc { // Thay đổi kế thừa từ Med
     public boolean isMatch(String title) {
         if (this.getTitle() == null) return false;
         return this.getTitle().toLowerCase().contains(title.toLowerCase());
+    }
+
+    @Override
+    public void play() {
+        if (this.getLength() <= 0) {
+            System.out.println("The DVD '" + this.getTitle() + "' cannot be played because its length is 0 or negative.");
+        } else {
+            System.out.println("Playing DVD: " + this.getTitle());
+            System.out.println("DVD length: " + this.getLength() + " min");
+        }
     }
 }
