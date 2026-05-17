@@ -1,33 +1,24 @@
-package hust.soict.dsai.aims.media; 
+package hust.soict.dsai.aims.media;
 
-public class DigitalVideoDisc extends Media { 
-    private String director;
-    private int length;
+public class DigitalVideoDisc extends Disc { // Thay đổi kế thừa từ Media sang Disc
     private static int nbDigitalVideoDiscs = 0;
 
+    // Cập nhật các Constructor để chuyển dữ liệu lên lớp cha Disc bằng super()
     public DigitalVideoDisc(String title) {
-        super();
-        this.setId(++nbDigitalVideoDiscs);
-        this.setTitle(title);
+        super(++nbDigitalVideoDiscs, title, null, 0.0f, null, 0);
     }
 
     public DigitalVideoDisc(String title, String category, float cost) {
-        super(++nbDigitalVideoDiscs, title, category, cost);
+        super(++nbDigitalVideoDiscs, title, category, cost, null, 0);
     }
 
     public DigitalVideoDisc(String title, String category, String director, float cost) {
-        super(++nbDigitalVideoDiscs, title, category, cost);
-        this.director = director;
+        super(++nbDigitalVideoDiscs, title, category, cost, director, 0);
     }
 
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
-        super(++nbDigitalVideoDiscs, title, category, cost);
-        this.director = director;
-        this.length = length;
+        super(++nbDigitalVideoDiscs, title, category, cost, director, length);
     }
-
-    public String getDirector() { return director; }
-    public int getLength() { return length; }
 
     public boolean isMatch(String title) {
         if (this.getTitle() == null) return false;
