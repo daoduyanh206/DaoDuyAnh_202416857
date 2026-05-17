@@ -1,6 +1,6 @@
 package hust.soict.dsai.aims.media;
 
-public class Track {
+public class Track implements Playable {
     private String title;
     private int length;
 
@@ -14,4 +14,14 @@ public class Track {
 
     public String getTitle() { return title; }
     public int getLength() { return length; }
+
+    @Override
+    public void play() {
+        if (this.getLength() <= 0) {
+            System.out.println("The track '" + this.getTitle() + "' cannot be played because its length is 0 or negative.");
+        } else {
+            System.out.println("Playing track: " + this.getTitle());
+            System.out.println("Track length: " + this.getLength() + " min");
+        }
+    }
 }
