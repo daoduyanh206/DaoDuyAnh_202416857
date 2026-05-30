@@ -1,0 +1,56 @@
+--- PHẦN 3: TOPIC/PASSING-PARAMETER ---
+
+Câu hỏi 1: Hãy xem xét đoạn mã nguồn trong phương thức swap(). Phương thức này có thực sự tráo đổi hai đối tượng DVD được truyền vào không? Tại sao?
+Trả lời: 
+- Phương thức swap(Object o1, Object o2) KHÔNG thực hiện tráo đổi được hai đối tượng gốc ở hàm main.
+- Giải thích: Java sử dụng cơ chế "Pass-by-value". Khi truyền đối tượng vào phương thức, Java tạo ra bản sao của tham chiếu (địa chỉ ô nhớ). Việc tráo đổi `o1` và `o2` bên trong phương thức thực chất chỉ là tráo đổi hai "bản sao" này, không làm ảnh hưởng đến các biến tham chiếu gốc mà `jungleDVD` và `cinderellaDVD` đang nắm giữ.
+
+Câu hỏi 2: Phương thức changeTitle(DigitalVideoDisc dvd, String title) có làm thay đổi tiêu đề của đối tượng DVD gốc không? Tại sao?
+Trả lời:
+- CÓ, phương thức này làm thay đổi tiêu đề của đối tượng gốc.
+- Giải thích: Mặc dù biến `dvd` truyền vào phương thức là một bản sao của tham chiếu, nhưng nó vẫn trỏ chung đến cùng một vùng nhớ với đối tượng gốc. Khi ta gọi `dvd.setTitle(title)`, ta đang truy cập vào nội dung bên trong vùng nhớ đó và sửa đổi nó, do đó thay đổi sẽ được phản ánh lên đối tượng gốc.
+
+--- PHẦN 4: TOPIC/CLASS-MEMBERS ---
+
+Câu hỏi: Sự khác nhau giữa biến `id` và biến `nbDigitalVideoDiscs` trong lớp DigitalVideoDisc là gì?
+Trả lời:
+- Biến `id` là biến thể hiện (instance member): Mỗi đối tượng DVD sẽ có một bản sao riêng của `id`. Giá trị này là duy nhất cho mỗi đĩa.
+- Biến `nbDigitalVideoDiscs` là biến lớp (class member/static): Chỉ có DUY NHẤT một bản sao của biến này dùng chung cho tất cả các đối tượng thuộc lớp DigitalVideoDisc. Nó dùng để theo dõi tổng số lượng DVD đã được tạo ra trong toàn bộ chương trình.
+
+--- PHẦN 9: TOPIC/MEMORY-MANAGEMENT-STRING ---
+
+Câu hỏi: Sự khác biệt giữa String, StringBuffer và StringBuilder là gì? Khi nào nên sử dụng mỗi loại?
+Trả lời:
+- String: Là đối tượng bất biến (immutable). Khi bạn thay đổi hoặc cộng chuỗi, Java sẽ tạo ra một đối tượng String hoàn toàn mới trong bộ nhớ. Nếu làm việc này trong vòng lặp lớn, nó sẽ tạo ra rất nhiều "rác" và làm chậm chương trình.
+- StringBuilder: Là đối tượng có thể thay đổi (mutable). Nó cho phép chỉnh sửa nội dung chuỗi mà không tạo ra đối tượng mới. Nó có tốc độ nhanh nhất nhưng không an toàn trong môi trường đa luồng (non-thread-safe).
+- StringBuffer: Tương tự StringBuilder nhưng an toàn trong môi trường đa luồng (thread-safe) do có cơ chế đồng bộ hóa (synchronization). Vì thế, nó chậm hơn StringBuilder một chút.
+- Kết luận: Nên dùng String cho chuỗi cố định, StringBuilder cho việc xử lý/xây dựng chuỗi trong vòng lặp đơn luồng, và StringBuffer khi làm việc với đa luồng.
+
+--- PHẦN 12: TOPIC/SORT-MEDIA-COMPARABLE-COMPARATOR ---
+
+Câu hỏi 1: Nếu sử dụng hướng tiếp cận Comparable thay vì Comparator, lớp nào sẽ cần triển khai (implement) interface Comparable?
+Trả lời:
+- Lớp Media nên là lớp triển khai interface Comparable<Media>.
+- Giải thích: Vì Media là lớp cha của tất cả các loại sản phẩm (Book, CompactDisc, DigitalVideoDisc), việc triển khai tại đây sẽ cho phép các lớp con tự động thừa hưởng khả năng so sánh và sắp xếp chung của toàn bộ hệ thống.
+
+Câu hỏi 2: Trong lớp đó, phương thức compareTo() cần được cài đặt như thế nào để phản ánh đúng quy tắc sắp xếp chúng ta muốn?
+Trả lời:
+- Phương thức compareTo(Media other) sẽ được ghi đè để so sánh thuộc tính tiêu đề (title) trước (sử dụng phương thức title.compareToIgnoreCase(other.title)).
+- Giải thích: Trong trường hợp hai sản phẩm có cùng tiêu đề, chúng ta sẽ tiếp tục so sánh thuộc tính giá cả (cost) bằng hàm Float.compare(other.cost, this.cost) hoặc đối chiếu các giá trị tương đương để đưa sản phẩm có giá cao hơn lên trước.
+
+Câu hỏi 3: Chúng ta có thể định nghĩa đồng thời cả hai quy tắc sắp xếp (sắp xếp theo tiêu đề trước giá sau, và sắp xếp theo giá trước tiêu đề sau) nếu chỉ sử dụng hướng tiếp cận Comparable không?
+Trả lời:
+- KHÔNG thể định nghĩa đồng thời hai quy tắc nếu chỉ dùng Comparable.
+- Giải thích: Interface Comparable chỉ cho phép định nghĩa một quy tắc sắp xếp tự nhiên duy nhất qua một phương thức compareTo() duy nhất của lớp. Để hệ thống có thể linh hoạt chuyển đổi giữa nhiều tiêu chí độc lập khác nhau theo lựa chọn của người dùng, chúng ta bắt buộc phải sử dụng hướng tiếp cận Comparator.
+
+Câu hỏi 4: Giả sử đĩa DVD có một quy tắc sắp xếp hoàn toàn khác biệt so với các loại phương tiện khác (sắp xếp theo tiêu đề, sau đó đến thời lượng giảm dần, rồi mới đến giá tiền). Bạn sẽ chỉnh sửa mã nguồn như thế nào để đáp ứng điều này?
+Trả lời:
+- Cách xử lý: Chúng ta có thể kiểm tra kiểu dữ liệu đặc thù bằng toán tử `instanceof` hoặc ghi đè riêng phương thức xử lý cho đĩa DVD.
+- Giải thích: Trong hàm compare() của Comparator hoặc compareTo() của Comparable, ta sẽ kiểm tra xem đối tượng có phải là DigitalVideoDisc hay không. Nếu đúng, ta thực hiện ép kiểu và chèn thêm bước so sánh thuộc tính thời lượng (length) giảm dần vào giữa bước so sánh tiêu đề và giá tiền để đáp ứng đúng nghiệp vụ riêng biệt của DVD.
+
+--- PHẦN 14: TOPIC/EXCEPTION-HANDLING-AIMS ---
+
+Câu hỏi: Điều gì sẽ xảy ra nếu bạn không cập nhật mã nguồn để bắt (catch) hoặc ủy quyền (declare/throws) các ngoại lệ khi phương thức play() được gọi?
+Trả lời:
+- Nếu không xử lý, trình biên dịch Java (javac) sẽ lập tức báo lỗi gạch đỏ "Unhandled exception type PlayerException" và từ chối biên dịch chương trình.
+- Giải thích: Vì `PlayerException` kế thừa từ lớp `Exception`, nó thuộc nhóm Checked Exception (Ngoại lệ bắt buộc phải kiểm tra). Cơ chế an toàn của Java quy định rằng bất kỳ đoạn mã nào gọi đến một phương thức có khai báo `throws Checked Exception` thì bắt buộc phải được bao bọc trong khối `try-catch` để xử lý xử cố, hoặc phương thức gọi nó cũng phải tiếp tục khai báo `throws` trên chữ ký hàm để đẩy trách nhiệm lên tầng cao hơn. Nếu ngó lơ, ứng dụng sẽ không thể xây dựng thành công.
